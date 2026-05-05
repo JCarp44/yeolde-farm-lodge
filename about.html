@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ye Olde Farm Lodge</title>
+
+<style>
+
+
+
+/* =========================
+   GLOBAL RESET
+========================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f8f5f0;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+
+
+
+/* =========================
+   NAV
+========================= */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e6e1d8;
+}
+
+.nav-inner {
+  max-width: auto;
+  margin: auto;
+  padding: 10px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.brand {
+  font-weight: bold;
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+}
+
+
+/* DESKTOP MENU */
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  gap: 16px;
+
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+
+
+
+
+
+
+/* =========================
+   HEADER
+========================= */
+header {
+  position: relative;
+  background: url('images/Stylized sketch.png') center/cover no-repeat;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* dark overlay for readability */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+/* keep text above overlay */
+header h1,
+header p {
+  position: relative;
+  z-index: 2;
+}
+
+/* MAIN TITLE */
+header h1 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* SUBTITLE */
+header p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   PAGE LAYOUT (SIDES + CONTENT)
+========================= */
+.page-body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+
+/* =========================
+   MAIN CONTENT CARD
+========================= */
+.container {
+  flex: 1;
+  max-width: auto;
+  min-width: 0;
+  margin: 40px 20px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   MOBILE LAYOUT
+========================= */
+@media (max-width: 999px) {
+
+  .page-body {
+    flex-direction: column;
+  }
+
+  .container {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    order: 1; /* CONTENT FIRST */
+  }
+
+ 
+  /* MAKE IMAGES SIDE BY SIDE */
+  .side-image.left {
+    order: 2;
+  }
+
+  .side-image.right {
+    order: 3;
+  }
+
+  
+}
+
+
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: white;
+}
+
+.intro {
+  padding: 10px 0 30px;
+}
+
+.intro h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+/* Contact card */
+.contact-card {
+  margin-top: 25px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.contact-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* Buttons layout */
+.contact-buttons {
+  display: grid;
+  gap: 10px;
+}
+
+/* Button style */
+.btn {
+  display: block;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #6b8e23;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background: #5a7a1e;
+}
+
+/* Secondary buttons */
+.btn.secondary {
+  background: #444;
+}
+
+.btn.secondary:hover {
+  background: #222;
+}
+
+/* =========================
+   GLOBAL IMPROVEMENTS
+========================= */
+body {
+  background: #f8f5f0;
+  color: #333;
+}
+
+/* smoother spacing system */
+.container p {
+  line-height: 1.75;
+}
+
+
+/* =========================
+   CLEANER TYPOGRAPHY
+========================= */
+h1, h2, h3 {
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+
+ </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Ye Olde Farm Lodge</div>
+    <ul class="menu">
+      <li><a href="index.html">Back to Home</a></li>
+    </ul>
+  </div>
+
+</nav>
+
+
+<!-- HEADER -->
+<header>
+  <h1>Ye Olde Farm Lodge</h1>
+  <p>Your peaceful countryside escape</p>
+</header>
+
+  <main class="container">
+
+    <section class="intro">
+
+  <h2>About</h2>
+
+  <p>
+<h3> 1840s-1920s: The Tefft Farm </h3>
+  Originally purchased from the Holland Land Company by Jedidiah Prendergast - brother of James Prendergast, the founder and namesake of Jamestown, New York - the true story of Ye Olde Farm Lodge begins in the 1840s. In those days, Mr. Prendergast sold the parcel to Daniel Tefft, who came to French Creek to work the rich and fertile soil.
+
+In old maps and weathered documents, the property was long known simply as “The Tefft Farm.” There, Daniel Tefft and his wife Lydia raised their family, living out their days upon the land—Daniel passing in 1888, and Lydia following in 1896. Their eldest son, John, carried on the farmstead until his own death in 1908.
+
+Across the road, in a quiet plot shaded by time, lies the old Tefft Cemetery, where Daniel, Lydia, and several of their children have been laid to rest - a lasting testament to the family whose roots ran deep in that soil.
+
+<h3> 1920s-1970s: The Wroblewski Family Farm </h3>
+In the year 1904, Alexander Wroblewski left his homeland of Poland and journeyed to the United States, first making his home in Erie, Pennsylvania. By 1918, he and his wife, Wanda, had set their sights on a quieter life in French Creek, where her family had taken up the work of farming and eventually they settled into the old Tefft farmhouse.
+
+Within those sturdy walls, they raised their children - Della, Ed, Ruth, Joe, Lucy, Alex Jr., Irene, and Leonard - filling the home with the rhythms of daily labor and the warmth of an incredibly close-knit family. Alex and Wanda instilled in them the enduring values of hard work, devotion, and tradition, lessons carried not only in word but in the steady example of their lives.
+
+In time, their children spread their roots far and wide. Some remained close to the land, tending to the family farm or to neighboring fields, opened shop in a nearby town or ventured farther still across the country. Wherever they went, they carried with them the spirit of the homestead and the teachings of their parents, passing them down to the generations yet to come.
+
+Their youngest son  Leonard held a special fondness for the old farm. Drawn back by its quiet call, he and his wife, Rita, returned to live and work the land. There, they raised a remarkable family of eleven children, ensuring that the legacy of their family and the values they stood for would endure upon that soil for years to come.
+
+
+<h3> 1970s-Present: Ye Olde Farm Lodge </h3>
+After Lenny and Rita had relocated to nearby Erie, Pennsylvania, they kept the old farmhouse as a meeting place for the entire Wroblewski family and friends alike who all hold this property in a special place in their hearts. They offered the house up for weekend and weekly rentals, giving it the name "Ye Olde Farm Lodge". Today the Wroblewski legacy lives on at the property, as their children and grandchildren having lovingly been stewards of this deeply important property. 100 years after Alex and Wanda moved to the farm, six generations of the Wroblewski family still gather to this day to celebrate the love and lessons that were taught so long ago. Today, we are honored to share our legacy and Ye Olde Farm Lodge with folks who stay here and create wonderful memories as we have for generations.
+
+After Lenny and Rita relocated to nearby Erie, Pennsylvania, they held fast to the old farmhouse, keeping it as a cherished gathering place for the entire Wroblewski family and their many friends who too had come to hold the property dear. In time, they opened its doors to others, offering it for weekend and weekly stays and bestowing upon it the fitting name which it carries to this day, “Ye Olde Farm Lodge.”
+
+And so the legacy has endured. With loving care, their children and grandchildren had became stewards of the homestead, tending not only to the property itself but to the memories rooted deep within it. A full century after Alex and Wanda first made their life upon the farm, six generations of the Wroblewski family have gathered on these grounds, drawn together to celebrate the love, traditions, and lessons first planted there so many years ago.
+
+Today, it is with great pride and a full heart that this legacy is shared. Ye Olde Farm Lodge stands not only as a place to stay, but as a place to come together, to reminisce, and to create new memories - just as generations of our family have done before. We welcome you and yours and are elated to share this special place with you.
+
+  </p>
+
+
+
+
+
+
+
+</section>
+
+  </main>
+
+ 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Ye Olde Farm Lodge</p>
+</footer>
+
+<script>
+
+let currentIndex = 0;
+
+function moveSlide(direction) {
+  const track = document.getElementById("carouselTrack");
+  const slides = track.children;
+  const totalSlides = slides.length;
+
+  currentIndex += direction;
+
+  if (currentIndex < 0) currentIndex = totalSlides - 1;
+  if (currentIndex >= totalSlides) currentIndex = 0;
+
+  const slideWidth = slides[0].clientWidth;
+  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+}
+
+function toggleMenu() {
+  const menu = document.getElementById("mobileMenu");
+  const overlay = document.getElementById("overlay");
+
+  menu.classList.toggle("open");
+  overlay.classList.toggle("open");
+}
+
+/* close menu when clicking a link */
+document.querySelectorAll(".menu-mobile a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.getElementById("mobileMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("open");
+  });
+});
+
+/* fade-in observer */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+});
+
+document.querySelectorAll('.intro, .contact-card, .collapsible, .section')
+  .forEach(el => observer.observe(el));
+
+/* safety: close drawer on resize up */
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 900) {
+    document.getElementById("mobileMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("open");
+  }
+});
+document.querySelectorAll(".collapsible").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const content = this.nextElementSibling;
+
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
+

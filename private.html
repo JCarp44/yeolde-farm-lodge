@@ -5,18 +5,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Private Gallery</title>
+
 <style>
-body { font-family: Arial; padding: 20px; }
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
-.gallery img { width: 100%; height: 200px; object-fit: cover; }
+
+.slideshow-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.slideshow-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transition: opacity 0.8s ease;
+}
+
 </style>
 </head>
+
+
 <body>
 <h1>Private Photo Gallery</h1>
 <p>This page is protected. Only approved users can view it.</p>
-<div class="gallery">
-  <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
-  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<section class="slideshow-container">
+  <img id="slide" src="" alt="Reunion photos" />
+</section>
 </div>
+
+<script>
+let images = [];
+let index = 0;
+
+fetch("reunion97.json")
+  .then(res => res.json())
+  .then(data => {
+    images = data;
+
+    if (images.length > 0) {
+      document.getElementById("slide").src = images[0];
+
+      setInterval(() => {
+        index = (index + 1) % images.length;
+        document.getElementById("slide").src = images[index];
+      }, 4000);
+    }
+  });
+</script>
+
 </body>
 </html>
