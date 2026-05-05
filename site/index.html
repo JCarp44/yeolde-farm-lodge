@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ye Olde Farm Lodge</title>
+
+  <style>
+/* =========================
+   GLOBAL RESET
+========================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f8f5f0;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* =========================
+   NAV
+========================= */
+.nav { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); border-bottom: 1px solid #e6e1d8; }
+.nav-inner { max-width: 1000px; margin: auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: bold; }
+
+.menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
+.bar { display: block; width: 24px; height: 3px; margin: 5px 0; background: #333; border-radius: 2px; }
+
+.menu { list-style: none; margin: 0; padding: 0; display: flex; gap: 16px; }
+.menu a { text-decoration: none; color: #333; font-weight: 500; }
+
+.menu-mobile { display: none; position: absolute; left: 0; right: 0; top: 56px; background: white; border-bottom: 1px solid #e6e1d8; }
+.menu-mobile ul { list-style: none; margin: 0; padding: 10px 16px; }
+.menu-mobile li { margin: 10px 0; }
+.menu-mobile a { text-decoration: none; color: #333; font-size: 1.1rem; }
+.menu-mobile.open { display: block; }
+
+/* =========================
+   HEADER
+========================= */
+header {
+  background: url('images/Wide angle exterior.png') center/cover no-repeat;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* =========================
+   PAGE LAYOUT (SIDES + CONTENT)
+========================= */
+.page-body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* SIDE IMAGES */
+.side-image {
+  flex: 0 0 18vw;
+  max-width: 280px;
+  min-width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-image img {
+  width: 100%;
+  max-height: 90vh;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  filter: contrast(0.95) brightness(0.95);
+}
+
+/* =========================
+   MAIN CONTENT CARD
+========================= */
+.container {
+  flex: 1;
+  max-width: 1000px;
+  min-width: 0;
+  margin: 40px 20px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   MOBILE LAYOUT
+========================= */
+@media (max-width: 999px) {
+  .page-body {
+    flex-direction: column;
+  }
+
+  .container {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .side-image img {
+    height: 250px;
+    width: 100%;
+  }
+
+  .side-image.left { order: 2; }
+  .container { order: 1; }
+  .side-image.right { order: 3; }
+}
+
+/* =========================
+   COLLAPSIBLES
+========================= */
+.collapsible {
+  background: #6b8e23;
+  color: white;
+  cursor: pointer;
+  padding: 14px 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: #fff;
+  padding: 0 15px;
+  border-radius: 0 0 6px 6px;
+  border: 1px solid #e6e1d8;
+  border-top: none;
+}
+
+.content-inner {
+  padding: 15px 0;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: white;
+}
+
+.intro {
+  padding: 10px 0 30px;
+}
+
+.intro h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+/* Contact card */
+.contact-card {
+  margin-top: 25px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.contact-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* Buttons layout */
+.contact-buttons {
+  display: grid;
+  gap: 10px;
+}
+
+/* Button style */
+.btn {
+  display: block;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #6b8e23;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background: #5a7a1e;
+}
+
+/* Secondary buttons */
+.btn.secondary {
+  background: #444;
+}
+
+.btn.secondary:hover {
+  background: #222;
+}
+
+/* =========================
+   GLOBAL IMPROVEMENTS
+========================= */
+body {
+  background: #f8f5f0;
+  color: #333;
+}
+
+/* smoother spacing system */
+.container p {
+  line-height: 1.75;
+}
+
+/* =========================
+   STICKY BOOK BUTTON
+========================= */
+.sticky-book {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #6b8e23;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: 0.2s ease;
+}
+
+.sticky-book:hover {
+  background: #5a7a1e;
+  transform: scale(1.05);
+}
+
+/* hide on desktop (optional cleaner look) */
+@media (min-width: 900px) {
+  .sticky-book {
+    display: none;
+  }
+}
+
+/* =========================
+   SIDE IMAGE POLISH
+========================= */
+.side-image {
+  position: sticky;
+  top: 80px;
+  opacity: 0.9;
+}
+
+.side-image img {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+}
+
+/* subtle hover parallax feel */
+.side-image img {
+  transition: transform 0.4s ease;
+}
+
+.side-image:hover img {
+  transform: scale(1.03);
+}
+
+/* =========================
+   SECTION FADE-IN EFFECT
+========================= */
+.section, .intro, .contact-card, .collapsible {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.6s ease;
+}
+
+.section.visible,
+.intro.visible,
+.contact-card.visible,
+.collapsible.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   CLEANER TYPOGRAPHY
+========================= */
+h1, h2, h3 {
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+/* =========================
+   MOBILE POLISH
+========================= */
+@media (max-width: 900px) {
+  .side-image img {
+    max-width: 100%;
+    height: 220px;
+    object-fit: contain;
+  }
+}
+
+<!-- Button behavior -->
+
+
+.phone-btn {
+  background: #2e7d32; /* green example */
+}
+
+.phone-btn:hover {
+  background: #1b5e20;
+}
+
+.email-btn {
+  background: #0f766e; /* teal example */
+}
+
+.email-btn:hover {
+  background: #115e59;
+}
+
+.fb-btn {
+  background: #1877F2; /* FB blue */
+}
+
+.fb-btn:hover {
+  background: #166FE5;
+}
+
+.airbnb-btn {
+  background: #FF5A5F; /* airbnb coral */
+}
+
+.airbnb-btn:hover {
+  background: #E0484D;
+}
+
+/* =========================
+   BUTTON CONTAINER
+========================= */
+.contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =========================
+   BASE BUTTON
+========================= */
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 14px 20px;
+  border-radius: 12px;
+
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+
+  transition: all 0.3s ease;
+}
+
+/* =========================
+   ICONS
+========================= */
+.btn img,
+.btn .icon {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+/* =========================
+   GRADIENT SWEEP
+========================= */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+
+  transition: 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* =========================
+   PHONE (teal)
+========================= */
+.btn.phone {
+  background: linear-gradient(135deg, #0f766e, #115e59);
+  box-shadow: 0 6px 18px rgba(15,118,110,0.4);
+}
+
+/* =========================
+   EMAIL (blue)
+========================= */
+.btn.email {
+  background: linear-gradient(135deg, #1e73be, #155fa0);
+  box-shadow: 0 6px 18px rgba(30,115,190,0.4);
+}
+
+/* =========================
+   FACEBOOK
+========================= */
+.btn.facebook {
+  background: linear-gradient(135deg, #1877F2, #166FE5);
+  box-shadow: 0 6px 18px rgba(24,119,242,0.4);
+}
+
+/* =========================
+   AIRBNB
+========================= */
+.btn.airbnb {
+  background: linear-gradient(135deg, #FF5A5F, #E0484D);
+  box-shadow: 0 6px 18px rgba(255,90,95,0.4);
+}
+
+/* =========================
+   HOVER
+========================= */
+.btn:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn:hover img,
+.btn:hover .icon {
+  transform: scale(1.2);
+}
+
+/* =========================
+   CLICK
+========================= */
+.btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+  </style>
+</head>
+
+<body>
+<a class="sticky-book" href="tel:+17164997833">
+  Call to Book Now
+</a>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Ye Olde Farm Lodge</div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <ul class="menu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="/private.html">Private Gallery</a></li>
+    </ul>
+  </div>
+
+  <div id="mobileMenu" class="menu-mobile">
+    <ul>
+      <li><a href="#about" onclick="toggleMenu()">About</a></li>
+      <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
+      <li><a href="#location" onclick="toggleMenu()">Location</a></li>
+      <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+      <li><a href="/private.html" onclick="toggleMenu()">Private Gallery</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- HEADER -->
+<header>
+  <h1>Ye Olde Farm Lodge</h1>
+  <p>A peaceful countryside escape</p>
+</header>
+
+<!-- PAGE BODY WITH SIDE FRAMES -->
+<div class="page-body">
+
+  <div class="side-image left">
+    <img src="images/left.png" alt="">
+  </div>
+
+  <main class="container">
+
+    <section class="intro">
+
+  <h2>Welcome</h2>
+
+  <p>
+    Escape to the charm and tranquility of Ye Olde Farm Lodge, a rustic historic farmhouse located just down the road from Peek'n Peak Resort and many popular area destinations.
+  </p>
+
+  <p>
+    Ye Olde Farm Lodge is a 5-bedroom, fully-furnished rental available for daily, weekly, and weekend stays. Guests can enjoy spacious grounds ideal for family picnics, reunions, and private events with amenities including volleyball courts, horseshoe pits, and a large outdoor fire pit.
+  </p>
+
+  <div class="contact-card">
+
+    <h3>Book Your Stay</h3>
+
+   <div class="contact-buttons">
+
+  <a class="btn phone" href="tel:+17164997833">
+    <span class="icon">📞</span>
+    <span>Call Us</span>
+  </a>
+
+  <a class="btn email" href="mailto:stay@yeoldefarmlodge.com">
+    <span class="icon">✉️</span>
+    <span>Email Us</span>
+  </a>
+
+  <a class="btn facebook" href="https://www.facebook.com/yeoldefarmlodge.ny">
+    <img src="images/FBlogo.png" alt="Facebook">
+    <span>Facebook</span>
+  </a>
+
+  <a class="btn airbnb" href="#">
+    <img src="images/AirbnbLogo.png" alt="Airbnb">
+    <span>Airbnb (Coming Soon)</span>
+  </a>
+
+</div>
+
+  </div>
+
+</section>
+
+  </main>
+
+  <div class="side-image right">
+    <img src="images/right.png" alt="">
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Ye Olde Farm Lodge</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+});
+
+<!-- JS for scroll fade in -->
+document.querySelectorAll('.intro, .contact-card, .collapsible, .section')
+  .forEach(el => observer.observe(el));
+
+
+</script>
+
+</body>
+</html>
+
