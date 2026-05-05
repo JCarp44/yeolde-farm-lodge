@@ -307,7 +307,7 @@ html, body {
 ========================= */
 header {
   position: relative;
-  background: url('images/Wide angle exterior.png') center/cover no-repeat;
+  background: url('images/Stylized sketch.png') center/cover no-repeat;
   color: white;
   padding: 120px 20px;
   text-align: center;
@@ -818,9 +818,9 @@ h2 {
 
     <ul class="menu">
       <li><a href="#about">About</a></li>
-      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#location">Location</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="/private.html">Private Gallery</a></li>
     </ul>
   </div>
@@ -842,7 +842,7 @@ h2 {
 <!-- HEADER -->
 <header>
   <h1>Ye Olde Farm Lodge</h1>
-  <p>A peaceful countryside escape</p>
+  <p>Your peaceful countryside escape</p>
 <a href="#contact" class="hero-btn">Book Your Stay</a>
 </header>
 
@@ -860,13 +860,15 @@ h2 {
   <h2>Welcome</h2>
 
   <p>
-    Escape to the charm and tranquility of Ye Olde Farm Lodge, a rustic historic farmhouse located just down the road from Peek'n Peak Resort and many popular area destinations.
+    Escape to the charm and tranquility of Ye Olde Farm Lodge, a rustic historic farmhouse located conveniently in French Creek, NY just down the road from Peek'n Peak Resort and many popular area destinations.
   </p>
 
   <p>
     Ye Olde Farm Lodge is a 5-bedroom, fully-furnished rental available for daily, weekly, and weekend stays. Guests can enjoy spacious grounds ideal for family picnics, reunions, and private events with amenities including volleyball courts, horseshoe pits, and a large outdoor fire pit.
   </p>
 
+ <h2>Location</h2>
+<section="location">
 <div class="location-section" id="location">
 
   <div class="map">
@@ -875,7 +877,7 @@ h2 {
   </div>
 
   <div class="address">
-    <h3>Location</h3>
+    <h3>Address</h3>
     <p>
       Ye Olde Farm Lodge<br>
       1061 Old Rd<br>
@@ -884,7 +886,7 @@ h2 {
   </div>
 
 </div>
-
+<section="contact">
   <div class="contact-card" id="contact">
 
     <h3>Book Your Stay</h3>
@@ -915,27 +917,11 @@ h2 {
 
   </div>
 
-<script>
-let currentIndex = 0;
-
-function moveSlide(direction) {
-  const track = document.getElementById("carouselTrack");
-  const slides = track.children;
-  const totalSlides = slides.length;
-
-  currentIndex += direction;
-
-  if (currentIndex < 0) currentIndex = totalSlides - 1;
-  if (currentIndex >= totalSlides) currentIndex = 0;
-
-  const slideWidth = slides[0].clientWidth;
-  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-}
-</script>
 
 <!-- Gallery -->
-<h2 class="section-title">Photo Gallery</h2>
 
+<h2 class="section-title">Photo Gallery</h2>
+<section="gallery">
 <div class="gallery-section">
     <div class="carousel">
 
@@ -948,6 +934,7 @@ function moveSlide(direction) {
           <img src="images/LivingRm.jpg">
           <img src="images/DiningRm.jpg">
           <img src="images/Kitchen.jpg">
+          <img src="images/Bdrm1.jpg">
           <img src="images/Bdrm2.jpg">
           <img src="images/Bdrm3.jpg">
           <img src="images/Bdrm4.jpg">
@@ -979,6 +966,23 @@ function moveSlide(direction) {
 </footer>
 
 <script>
+
+let currentIndex = 0;
+
+function moveSlide(direction) {
+  const track = document.getElementById("carouselTrack");
+  const slides = track.children;
+  const totalSlides = slides.length;
+
+  currentIndex += direction;
+
+  if (currentIndex < 0) currentIndex = totalSlides - 1;
+  if (currentIndex >= totalSlides) currentIndex = 0;
+
+  const slideWidth = slides[0].clientWidth;
+  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+}
+
 function toggleMenu() {
   const menu = document.getElementById("mobileMenu");
   const overlay = document.getElementById("overlay");
