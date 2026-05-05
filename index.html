@@ -8,6 +8,26 @@
   <title>Ye Olde Farm Lodge</title>
 
   <style>
+
+.hero-btn {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 22px;
+  background: #6b8e23;
+  color: white;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #5a7a1e;
+  transform: translateY(-2px);
+}
+
 /* =========================
    GLOBAL RESET
 ========================= */
@@ -22,32 +42,308 @@ html, body {
 }
 
 /* =========================
+   LOCATION SECTION
+========================= */
+.location-section {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 40px;
+}
+
+/* MAP */
+.map {
+  flex: 2;
+}
+
+.map iframe {
+  width: 100%;
+  height: 350px;   /* 👈 makes it larger */
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* ADDRESS BOX */
+.address {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.address h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.address p {
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .location-section {
+    flex-direction: column;
+  }
+
+  .map iframe {
+    height: 300px;
+  }
+}
+
+
+/* =========================
+   CAROUSEL
+========================= */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.carousel-window {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-track img {
+  width: 100%;
+  height: 450px;
+  object-fit: contain;
+  flex: 0 0 100%;
+  display: block;
+
+  /* Airbnb-style framing */
+  background: rgba(0,0,0,0.03);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+/* BUTTONS */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+.carousel-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+/* =========================
    NAV
 ========================= */
-.nav { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); border-bottom: 1px solid #e6e1d8; }
-.nav-inner { max-width: 1000px; margin: auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
-.brand { font-weight: bold; }
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e6e1d8;
+}
 
-.menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
-.bar { display: block; width: 24px; height: 3px; margin: 5px 0; background: #333; border-radius: 2px; }
+.nav-inner {
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-.menu { list-style: none; margin: 0; padding: 0; display: flex; gap: 16px; }
-.menu a { text-decoration: none; color: #333; font-weight: 500; }
+.brand {
+  font-weight: bold;
+}
 
-.menu-mobile { display: none; position: absolute; left: 0; right: 0; top: 56px; background: white; border-bottom: 1px solid #e6e1d8; }
-.menu-mobile ul { list-style: none; margin: 0; padding: 10px 16px; }
-.menu-mobile li { margin: 10px 0; }
-.menu-mobile a { text-decoration: none; color: #333; font-size: 1.1rem; }
-.menu-mobile.open { display: block; }
+/* DESKTOP MENU */
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 16px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+/* HAMBURGER BUTTON */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.bar {
+  display: block;
+  width: 24px;
+  height: 3px;
+  margin: 5px 0;
+  background: #333;
+  border-radius: 2px;
+}
+
+/* =========================
+   MODERN DRAWER MENU
+========================= */
+
+/* overlay background */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 999;
+}
+
+/* drawer panel */
+.menu-mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 280px;
+  background: white;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+  z-index: 1000;
+  padding-top: 70px;
+}
+
+/* menu items */
+.menu-mobile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+}
+
+.menu-mobile li {
+  margin: 18px 0;
+}
+
+.menu-mobile a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* OPEN STATE */
+.menu-mobile.open {
+  transform: translateX(0);
+}
+
+.overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* show hamburger on mobile */
+@media (max-width: 900px) {
+  .menu {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* =========================
+   RESPONSIVE SWITCH
+========================= */
+@media (max-width: 900px) {
+
+  /* hide desktop menu */
+  .menu {
+    display: none;
+  }
+
+  /* show hamburger */
+  .menu-toggle {
+    display: block;
+  }
+}
 
 /* =========================
    HEADER
 ========================= */
 header {
+  position: relative;
   background: url('images/Wide angle exterior.png') center/cover no-repeat;
   color: white;
-  padding: 80px 20px;
+  padding: 120px 20px;
   text-align: center;
+  overflow: hidden;
+}
+
+/* dark overlay for readability */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+/* keep text above overlay */
+header h1,
+header p {
+  position: relative;
+  z-index: 2;
+}
+
+/* MAIN TITLE */
+header h1 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* SUBTITLE */
+header p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
 }
 
 /* =========================
@@ -60,24 +356,6 @@ header {
   width: 100%;
 }
 
-/* SIDE IMAGES */
-.side-image {
-  flex: 0 0 18vw;
-  max-width: 280px;
-  min-width: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.side-image img {
-  width: 100%;
-  max-height: 90vh;
-  height: auto;
-  object-fit: contain;
-  border-radius: 10px;
-  filter: contrast(0.95) brightness(0.95);
-}
 
 /* =========================
    MAIN CONTENT CARD
@@ -97,6 +375,7 @@ header {
    MOBILE LAYOUT
 ========================= */
 @media (max-width: 999px) {
+
   .page-body {
     flex-direction: column;
   }
@@ -105,16 +384,86 @@ header {
     margin: 0;
     border-radius: 0;
     box-shadow: none;
+    order: 1; /* CONTENT FIRST */
   }
 
-  .side-image img {
-    height: 250px;
-    width: 100%;
+ 
+  /* MAKE IMAGES SIDE BY SIDE */
+  .side-image.left {
+    order: 2;
+  }
+
+  .side-image.right {
+    order: 3;
+  }
+
+  
+}
+
+/* =========================
+   SIDE IMAGES (FINAL CLEAN VERSION)
+========================= */
+
+.side-image {
+  flex: 0 0 18vw;
+  max-width: auto;
+  min-width: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: sticky;
+  top: 80px;
+}
+
+.side-image img {
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* hover effect */
+.side-image:hover img {
+  transform: scale(1.03);
+}
+
+/* =========================
+   MOBILE FIX
+========================= */
+@media (max-width: 999px) {
+
+  .page-body {
+    flex-direction: column;
+  }
+
+  .container {
+    order: 1;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .side-image.left { order: 2; }
-  .container { order: 1; }
   .side-image.right { order: 3; }
+
+  .side-image {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    position: relative;
+    top: auto;
+  }
+
+  .side-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
+  }
 }
 
 /* =========================
@@ -261,30 +610,6 @@ body {
   }
 }
 
-/* =========================
-   SIDE IMAGE POLISH
-========================= */
-.side-image {
-  position: sticky;
-  top: 80px;
-  opacity: 0.9;
-}
-
-.side-image img {
-  max-width: 180px;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
-}
-
-/* subtle hover parallax feel */
-.side-image img {
-  transition: transform 0.4s ease;
-}
-
-.side-image:hover img {
-  transform: scale(1.03);
-}
 
 /* =========================
    SECTION FADE-IN EFFECT
@@ -314,16 +639,7 @@ h2 {
   margin-top: 10px;
 }
 
-/* =========================
-   MOBILE POLISH
-========================= */
-@media (max-width: 900px) {
-  .side-image img {
-    max-width: 100%;
-    height: 220px;
-    object-fit: contain;
-  }
-}
+
 
 <!-- Button behavior -->
 
@@ -509,6 +825,8 @@ h2 {
     </ul>
   </div>
 
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
   <div id="mobileMenu" class="menu-mobile">
     <ul>
       <li><a href="#about" onclick="toggleMenu()">About</a></li>
@@ -525,6 +843,7 @@ h2 {
 <header>
   <h1>Ye Olde Farm Lodge</h1>
   <p>A peaceful countryside escape</p>
+<a href="#contact" class="hero-btn">Book Your Stay</a>
 </header>
 
 <!-- PAGE BODY WITH SIDE FRAMES -->
@@ -548,7 +867,25 @@ h2 {
     Ye Olde Farm Lodge is a 5-bedroom, fully-furnished rental available for daily, weekly, and weekend stays. Guests can enjoy spacious grounds ideal for family picnics, reunions, and private events with amenities including volleyball courts, horseshoe pits, and a large outdoor fire pit.
   </p>
 
-  <div class="contact-card">
+<div class="location-section" id="location">
+
+  <div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2962.918695101366!2d-79.73542232258555!3d42.04492377122387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8832a110779d8f8b%3A0x1154de24ef13849e!2sYe%20Olde%20Farm%20Lodge!5e0!3m2!1sen!2sus!4v1774228812331!5m2!1sen!2sus"
+        allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <div class="address">
+    <h3>Location</h3>
+    <p>
+      Ye Olde Farm Lodge<br>
+      1061 Old Rd<br>
+      Clymer, NY 14724
+    </p>
+  </div>
+
+</div>
+
+  <div class="contact-card" id="contact">
 
     <h3>Book Your Stay</h3>
 
@@ -578,6 +915,54 @@ h2 {
 
   </div>
 
+<script>
+let currentIndex = 0;
+
+function moveSlide(direction) {
+  const track = document.getElementById("carouselTrack");
+  const slides = track.children;
+  const totalSlides = slides.length;
+
+  currentIndex += direction;
+
+  if (currentIndex < 0) currentIndex = totalSlides - 1;
+  if (currentIndex >= totalSlides) currentIndex = 0;
+
+  const slideWidth = slides[0].clientWidth;
+  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+}
+</script>
+
+<!-- Gallery -->
+<h2 class="section-title">Photo Gallery</h2>
+
+<div class="gallery-section">
+    <div class="carousel">
+
+      <button class="carousel-btn left" onclick="moveSlide(-1)">‹</button>
+
+      <div class="carousel-window">
+        <div class="carousel-track" id="carouselTrack">
+
+          <img src="images/front.png">
+          <img src="images/LivingRm.jpg">
+          <img src="images/DiningRm.jpg">
+          <img src="images/Kitchen.jpg">
+          <img src="images/Bdrm2.jpg">
+          <img src="images/Bdrm3.jpg">
+          <img src="images/Bdrm4.jpg">
+          <img src="images/Bdrm5.jpg">
+
+        </div>
+      </div>
+
+      <button class="carousel-btn right" onclick="moveSlide(1)">›</button>
+
+    </div>
+
+  </div>
+
+
 </section>
 
   </main>
@@ -594,6 +979,23 @@ h2 {
 </footer>
 
 <script>
+function toggleMenu() {
+  const menu = document.getElementById("mobileMenu");
+  const overlay = document.getElementById("overlay");
+
+  menu.classList.toggle("open");
+  overlay.classList.toggle("open");
+}
+
+/* close menu when clicking a link */
+document.querySelectorAll(".menu-mobile a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.getElementById("mobileMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("open");
+  });
+});
+
+/* fade-in observer */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -602,10 +1004,27 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-<!-- JS for scroll fade in -->
 document.querySelectorAll('.intro, .contact-card, .collapsible, .section')
   .forEach(el => observer.observe(el));
 
+/* safety: close drawer on resize up */
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 900) {
+    document.getElementById("mobileMenu").classList.remove("open");
+    document.getElementById("overlay").classList.remove("open");
+  }
+});
+document.querySelectorAll(".collapsible").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const content = this.nextElementSibling;
+
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+});
 
 </script>
 
